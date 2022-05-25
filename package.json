@@ -1,9 +1,0 @@
-{
-  "name": "vanilla_js_spa",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "npx http-server"
-  }
-}
