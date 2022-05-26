@@ -1,4 +1,4 @@
-export default class Component {
+class Component {
   $target;
   $props;
   $state;
@@ -33,3 +33,5 @@ export default class Component {
     });
   }
 }
+
+export default Component;
