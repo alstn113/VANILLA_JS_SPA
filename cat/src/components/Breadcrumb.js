@@ -19,8 +19,8 @@ function Breadcrumb({ $app, initialState = [], onClick }) {
       .join("")}`;
   };
 
-  this.$target.addEventListener("click", (e) => {
-    const $navItem = e.target.closest(".nav-item");
+  this.$target.addEventListener("click", (event) => {
+    const $navItem = event.target.closest(".nav-item");
 
     if ($navItem) {
       const { index } = $navItem.dataset;

@@ -10,7 +10,7 @@ body {
   flex-direction: column;
 }
 
-.app {
+#root {
   border: 1px solid #ccc;
   background-color: #fff;
   border-radius: 5px;
@@ -71,4 +71,8 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.content img {
+  width: 70%;
 }

@@ -1,6 +1,7 @@
 function Nodes({ $app, initialState, onClick, onBackClick }) {
   this.state = initialState;
   this.$target = document.createElement("ul");
+  this.$target.className = "Nodes";
   $app.appendChild(this.$target);
   this.onClick = onClick;
   this.onBackClick = onBackClick;
@@ -34,8 +35,8 @@ function Nodes({ $app, initialState, onClick, onBackClick }) {
     }
   };
 
-  this.$target.addEventListener("click", (e) => {
-    const $node = e.target.closest(".Node");
+  this.$target.addEventListener("click", (event) => {
+    const $node = event.target.closest(".Node");
 
     if ($node) {
       const { nodeId } = $node.dataset;
