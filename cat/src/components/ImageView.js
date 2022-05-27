@@ -1,5 +1,4 @@
-const IMAGE_PATH_PREFIX =
-  "https://fe-dev-matching-2021-03-serverlessdeploymentbuck-t3kpj3way537.s3.ap-northeast-2.amazonaws.com/public";
+import { PROPERTIES } from "../config/properties.js";
 
 function ImageView({ $app, initialState }) {
   this.state = initialState;
@@ -16,7 +15,11 @@ function ImageView({ $app, initialState }) {
   this.render = () => {
     this.$target.innerHTML = `
       <div class="content">
-        ${this.state ? `<img src="${IMAGE_PATH_PREFIX}${this.state}"/>` : ""}
+        ${
+          this.state
+            ? `<img src="${PROPERTIES.IMAGE_PATH_PREFIX}${this.state}"/>`
+            : ""
+        }
       </div>
     `;
 
