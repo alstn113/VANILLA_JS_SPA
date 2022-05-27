@@ -3,10 +3,27 @@ const API_END_POINT =
 
 const request = async (nodeId) => {
   try {
-    const response = await fetch(`${API_END_POINT}/${nodeId ? nodeId : ""}`);
-    if (!response.ok) throw new Error("Server Error");
-    return response.json();
-  } catch (err) {
-    throw new Error("Something is wrong");
+    const res = await fetch(`${API_END_POINT}/${nodeId ? nodeId : ""}`);
+    if (!res.ok) throw new Error("서버의 상태가 이상합니다!");
+    return await res.json();
+  } catch (e) {
+    throw new Error(`무엇인가 잘못 되었습니다. ${e.message}`);
+  }
+};
+
+export const loading_request = async ({
+  nodeId,
+  setLoading,
+  finishLoading,
+}) => {
+  try {
+    setLoading();
+    const nodes = await request(nodeId);
+    return nodes;
+  } catch (e) {
+    throw new Error(`무엇인가 잘못 되었습니다. ${e.message}`);
+  } finally {
+    //finally를 꼭 써야 하는 이유?
+    finishLoading();
   }
 };
