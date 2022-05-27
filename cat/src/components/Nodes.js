@@ -17,8 +17,8 @@ function Nodes({ $app, initialState, onClick, onBackClick }) {
         .map((node) => {
           const iconPath =
             node.type === "FILE"
-              ? "../../public/images/file.png"
-              : "../../public/images/directory.png";
+              ? "public/images/file.png"
+              : "public/images/directory.png";
 
           return `
           <div class="Node" data-node-id="${node.id}">
@@ -30,7 +30,7 @@ function Nodes({ $app, initialState, onClick, onBackClick }) {
         .join("");
 
       this.$target.innerHTML = !this.state.isRoot
-        ? `<div class="Node"><img src="../../public/images/prev.png"></div>${nodesTemplate}`
+        ? `<div class="Node"><img src="public/images/prev.png"></div>${nodesTemplate}`
         : nodesTemplate;
     }
   };

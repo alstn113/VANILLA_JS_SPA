@@ -13,7 +13,7 @@ function Loading({ $app, initialState }) {
   this.render = () => {
     this.$target.innerHTML = `
       <div class="content">
-        <img src="../../public/images/nyan-cat.gif">
+        <img src="public/images/nyan-cat.gif">
       </div>
     `;
     this.$target.style.display = this.state ? "block" : "none";
