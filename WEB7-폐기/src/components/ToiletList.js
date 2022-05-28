@@ -11,7 +11,6 @@ function ToiletList({ $app, initialState, onClick }) {
   };
 
   this.render = () => {
-    console.log(this.$state);
     this.$target.innerHTML = `${this.$state
       .map(
         (node, index) =>
@@ -20,7 +19,7 @@ function ToiletList({ $app, initialState, onClick }) {
       .join("")}`;
   };
 
-  //this.render();
+  this.render();
 }
 
 export default ToiletList;
