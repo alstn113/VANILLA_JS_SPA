@@ -2,7 +2,7 @@ let presentPosition;
 
 const mapContainer = document.getElementById("map");
 const mapOption = {
-  center: new kakao.maps.LatLng(37.566826, 126.9786567),
+  center: new kakao.maps.LatLng(35.1347632, 129.1081092),
   level: 1,
 };
 
@@ -14,10 +14,30 @@ if (navigator.geolocation) {
     const lon = position.coords.longitude;
 
     presentPosition = new kakao.maps.LatLng(lat, lon);
-
-    map.setCenter(presentPosition);
+    const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
+    displayMarker(presentPosition, message);
   });
 } else {
-  presentPosition = new kakao.maps.LatLng(37.566826, 126.9786567);
-  alert("현재 위치를 찾을 수 없습니다!");
+  presentPosition = new kakao.maps.LatLng(35.1347632, 129.1081092);
+  const message = "geolocation을 사용할 수 없어요.";
+  displayMarker(presentPosition, message);
+}
+
+function displayMarker(locPosition, message) {
+  const marker = new kakao.maps.Marker({
+    map: map,
+    position: locPosition,
+  });
+
+  const iwContent = message;
+  const iwRemovable = true;
+
+  const infowindow = new kakao.maps.InfoWindow({
+    content: iwContent,
+    removable: iwRemovable,
+  });
+
+  infowindow.open(map, marker);
+
+  map.setCenter(locPosition);
 }
