@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>WEB TEAM7</title>
   </head>
   <body>
     <header>전국공중화장실표준데이터</header>
     <main>
-      <aside>주변 화장실 목록</aside>
+      <aside id="toiletList">
+        <h3>주변 화장실 목록</h3>
+      </aside>
       <div class="map_wrap">
         <div
           id="map"
@@ -21,8 +23,9 @@
             overflow: hidden;
           "
         ></div>
+        <button id="moveToPresentLodation">현재 위치</button>
       </div>
-      <aside>화장실 상세 목록</aside>
+      <aside id="toiletDetail"><h3>화장실 상세 목록</h3></aside>
     </main>
     <footer>
       <p>
@@ -32,6 +35,7 @@
       </p>
     </footer>
 
+    <script src="publicData.js"></script>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da7f37abcf376a199e1e3473919c8f09&libraries=services"></script>
     <script src="map.js"></script>
   </body>

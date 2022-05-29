@@ -23,7 +23,9 @@ if (navigator.geolocation) {
   displayMarker(presentPosition, message);
 }
 
-function displayMarker(locPosition, message) {
+displayData();
+
+const displayMarker = (locPosition, message) => {
   const marker = new kakao.maps.Marker({
     map: map,
     position: locPosition,
@@ -40,4 +42,20 @@ function displayMarker(locPosition, message) {
   infowindow.open(map, marker);
 
   map.setCenter(locPosition);
+};
+
+async function displayData() {
+  const toiletListData = await getToiletList();
+  const toiletListElement = document.getElementById("toiletList");
+  toiletListData.forEach((data) => {
+    const toilet = document.createElement("p");
+    toilet.className = "item";
+    toilet.innerHTML = `${data.toiletNm}`;
+    toiletListElement.appendChild(toilet);
+  });
 }
+
+const moveToPresentLodation = document.getElementById("moveToPresentLodation");
+moveToPresentLodation.addEventListener("click", () => {
+  map.panTo(presentPosition);
+});
