@@ -1,4 +1,5 @@
 let presentPosition;
+let selectedToilet;
 
 const mapContainer = document.getElementById("map");
 const mapOption = {
@@ -48,11 +49,39 @@ async function displayData() {
   const toiletListData = await getToiletList();
   const toiletListElement = document.getElementById("toiletList");
   toiletListData.forEach((data) => {
+    const toiletLocation = new kakao.maps.LatLng(data.latitude, data.longitude);
+    const message = data.toiletNm;
+
+    const marker = new kakao.maps.Marker({
+      map: map,
+      position: toiletLocation,
+    });
+    marker.setMap(map);
+
     const toilet = document.createElement("p");
     toilet.className = "item";
     toilet.innerHTML = `${data.toiletNm}`;
+    toilet.addEventListener("click", () => {
+      map.panTo(toiletLocation);
+      selectedToilet = data;
+      displaySelectedToilet();
+    });
     toiletListElement.appendChild(toilet);
   });
+}
+
+function displaySelectedToilet() {
+  const element = document.getElementById("toiletDetail");
+  element.innerHTML = `
+    <div>${selectedToilet.toiletNm}</div>
+    <div>${selectedToilet.lnmadr}</div>
+    <div>${selectedToilet.insttCode}</div>
+    <div>${selectedToilet.rdnmadr}</div>
+    <div>${selectedToilet.openTime}</div>
+    <div>${selectedToilet.phoneNmber}</div>
+    <div>${selectedToilet.latitude}</div>
+    <div>${selectedToilet.longitude}</div>
+  `;
 }
 
 const moveToPresentLodation = document.getElementById("moveToPresentLodation");

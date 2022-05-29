@@ -17,5 +17,6 @@ const getToiletList = async () => {
   const { response } = await request(
     `${PUBLIC_DATA_END_POINT}?serviceKey=${PUBLIC_DATA_SERVICE_KEY}&type=json`
   );
+  console.log(response.body.items);
   return response.body.items;
 };
