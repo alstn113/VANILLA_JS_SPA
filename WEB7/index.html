@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>WEB TEAM7</title>
   </head>
   <body>
     <header>전국공중화장실표준데이터</header>
     <main>
-      <aside id="toiletList">
+      <aside>
         <h3>주변 화장실 목록</h3>
+        <div id="toiletList"></div>
       </aside>
       <div class="map_wrap">
         <div
@@ -23,7 +24,7 @@
             overflow: hidden;
           "
         ></div>
-        <button id="moveToPresentLodation">현재 위치</button>
+        <button id="moveToPresentLocation">현재 위치</button>
       </div>
       <aside>
         <h3>화장실 상세 목록</h3>
@@ -38,8 +39,8 @@
       </p>
     </footer>
 
-    <script src="publicData.js"></script>
-    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da7f37abcf376a199e1e3473919c8f09&libraries=services"></script>
-    <script src="map.js"></script>
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=da7f37abcf376a199e1e3473919c8f09&libraries=services,clusterer"></script>
+    <script src="./js/publicData.js"></script>
+    <script src="./js/map.js"></script>
   </body>
 </html>

@@ -46,11 +46,17 @@ const displayMarker = (locPosition, message) => {
 };
 
 async function displayData() {
-  const toiletListData = await getToiletList();
   const toiletListElement = document.getElementById("toiletList");
+  const toiletListData = await getToiletList({
+    setLoading: () => {
+      toiletListElement.classList.add("loading");
+    },
+    finishLoading: () => {
+      toiletListElement.classList.remove("loading");
+    },
+  });
   toiletListData.forEach((data) => {
     const toiletLocation = new kakao.maps.LatLng(data.latitude, data.longitude);
-    const message = data.toiletNm;
 
     const marker = new kakao.maps.Marker({
       map: map,
@@ -84,7 +90,7 @@ function displaySelectedToilet() {
   `;
 }
 
-const moveToPresentLodation = document.getElementById("moveToPresentLodation");
-moveToPresentLodation.addEventListener("click", () => {
+const moveToPresentLocation = document.getElementById("moveToPresentLocation");
+moveToPresentLocation.addEventListener("click", () => {
   map.panTo(presentPosition);
 });
