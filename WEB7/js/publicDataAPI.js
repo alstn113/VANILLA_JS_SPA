@@ -17,7 +17,7 @@ const getToiletList = async ({ setLoading, finishLoading }) => {
   try {
     setLoading();
     const { response } = await request(
-      `${PUBLIC_DATA_END_POINT}?serviceKey=${PUBLIC_DATA_SERVICE_KEY}&type=json`
+      `${PUBLIC_DATA_END_POINT}?serviceKey=${PUBLIC_DATA_SERVICE_KEY}&type=json&numOfRows=500&pageNo=41`
     );
     console.log(response.body.items);
     return response.body.items;

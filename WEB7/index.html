@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>열린 화장실</title>
+    <!-- fontawesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
     <!-- site icon -->
     <link rel="icon" href="images/favicon.ico" />
     <!-- css -->
@@ -12,10 +17,13 @@
     <link rel="stylesheet" href="css/loading.css" />
   </head>
   <body>
-    <header>열린 화장실</header>
+    <header>
+      <i class="fas fa-toilet"></i>&nbsp;열린 화장실&nbsp;
+      <i class="fas fa-toilet"></i>
+    </header>
     <main>
       <aside>
-        <h3>주변 화장실 목록</h3>
+        <h3><i class="fas fa-clipboard-list"></i>&nbsp;주변 화장실 목록</h3>
         <div id="toiletList"></div>
       </aside>
       <div class="map_wrap">
@@ -28,10 +36,12 @@
             overflow: hidden;
           "
         ></div>
-        <button id="moveToPresentLocation">현재 위치</button>
+        <button id="moveToPresentLocation">
+          <i class="fas fa-street-view"></i>&nbsp;현재 위치
+        </button>
       </div>
       <aside>
-        <h3>화장실 상세 목록</h3>
+        <h3><i class="fas fa-info-circle"></i>&nbsp;화장실 상세 목록</h3>
         <div id="toiletDetail">원하시는 화장실을 클릭해주세요.</div>
       </aside>
     </main>
