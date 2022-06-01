@@ -1,6 +1,19 @@
 let presentPosition;
 let selectedToilet;
 
+// ### custom marker images ###
+const toiletMarkerImage = new kakao.maps.MarkerImage(
+  "images/marker/toilet.png",
+  new kakao.maps.Size(40, 40),
+  new kakao.maps.Point(20, 40)
+);
+
+const userMarkerImage = new kakao.maps.MarkerImage(
+  "images/marker/user.png",
+  new kakao.maps.Size(40, 40),
+  new kakao.maps.Point(20, 40)
+);
+
 const mapContainer = document.getElementById("map");
 const mapOption = {
   center: new kakao.maps.LatLng(35.1347632, 129.1081092),
@@ -15,7 +28,7 @@ if (navigator.geolocation) {
     const lon = position.coords.longitude;
 
     presentPosition = new kakao.maps.LatLng(lat, lon);
-    const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
+    const message = '<div class="info-window">급하다 급해!~</div>';
     displayMarker(presentPosition, message);
   });
 } else {
@@ -24,10 +37,10 @@ if (navigator.geolocation) {
   displayMarker(presentPosition, message);
 }
 
-const displayMarker = (locPosition, message) => {
+const displayMarker = (localPosition, message) => {
   const marker = new kakao.maps.Marker({
-    map: map,
-    position: locPosition,
+    position: localPosition,
+    image: userMarkerImage,
   });
 
   const iwContent = message;
@@ -38,9 +51,11 @@ const displayMarker = (locPosition, message) => {
     removable: iwRemovable,
   });
 
+  marker.setMap(map);
+
   infowindow.open(map, marker);
 
-  map.setCenter(locPosition);
+  map.setCenter(localPosition);
 };
 
 async function displayData() {
@@ -57,8 +72,8 @@ async function displayData() {
     const toiletLocation = new kakao.maps.LatLng(data.latitude, data.longitude);
 
     const marker = new kakao.maps.Marker({
-      map: map,
       position: toiletLocation,
+      image: toiletMarkerImage,
     });
     marker.setMap(map);
 
