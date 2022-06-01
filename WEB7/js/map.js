@@ -24,8 +24,6 @@ if (navigator.geolocation) {
   displayMarker(presentPosition, message);
 }
 
-displayData();
-
 const displayMarker = (locPosition, message) => {
   const marker = new kakao.maps.Marker({
     map: map,
@@ -94,3 +92,11 @@ const moveToPresentLocation = document.getElementById("moveToPresentLocation");
 moveToPresentLocation.addEventListener("click", () => {
   map.panTo(presentPosition);
 });
+
+// 메인 함수
+function main() {
+  displayData();
+}
+
+//메인 함수 실행
+main();

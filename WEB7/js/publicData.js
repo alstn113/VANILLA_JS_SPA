@@ -6,20 +6,12 @@ const PUBLIC_DATA_SERVICE_KEY =
 const request = async (url) => {
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error("서버의 상태가 이상합니다!");
+    if (!res.ok) throw new Error("Internal Server Error");
     return await res.json();
   } catch (err) {
-    throw new Error(`무엇인가 잘못 되었습니다. ${err.message}`);
+    throw new Error(`Something is wrong : ${err.message}`);
   }
 };
-
-// const getToiletList = async () => {
-//   const { response } = await request(
-//     `${PUBLIC_DATA_END_POINT}?serviceKey=${PUBLIC_DATA_SERVICE_KEY}&type=json`
-//   );
-//   console.log(response.body.items);
-//   return response.body.items;
-// };
 
 const getToiletList = async ({ setLoading, finishLoading }) => {
   try {
@@ -30,7 +22,7 @@ const getToiletList = async ({ setLoading, finishLoading }) => {
     console.log(response.body.items);
     return response.body.items;
   } catch (err) {
-    throw new Error(`무엇인가 잘못 되었습니다. ${err.message}`);
+    throw new Error(`Something is wrong : ${err.message}`);
   } finally {
     finishLoading();
   }
