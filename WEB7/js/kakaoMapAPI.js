@@ -1,5 +1,4 @@
 let presentPosition;
-let selectedToilet;
 
 // custom marker images
 const toiletMarkerImage = new kakao.maps.MarkerImage(
@@ -95,14 +94,13 @@ async function displayData() {
     toilet.innerHTML = `${data.toiletNm}`;
     toilet.addEventListener("click", () => {
       map.panTo(toiletLocation);
-      selectedToilet = data;
-      displaySelectedToilet();
+      displaySelectedToilet(data);
     });
     toiletListElement.appendChild(toilet);
   });
 }
 
-function displaySelectedToilet() {
+function displaySelectedToilet(selectedToilet) {
   const element = document.getElementById("toiletDetail");
   element.innerHTML = `
     <div class="item">
@@ -121,11 +119,11 @@ function displaySelectedToilet() {
   `;
 }
 
-// 메인 함수
+// main function
 function main() {
   displayData();
   setPresentPosition();
 }
 
-//메인 함수 실행
+// start main function
 main();
