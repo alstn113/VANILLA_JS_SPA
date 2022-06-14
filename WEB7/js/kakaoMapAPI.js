@@ -1,16 +1,16 @@
 let presentPosition;
 
 // custom marker images
-const toiletMarkerImage = new kakao.maps.MarkerImage(
-  "images/marker/toilet.png",
-  new kakao.maps.Size(40, 40),
-  new kakao.maps.Point(20, 40)
+const CustomMarkerImage = new kakao.maps.MarkerImage(
+  "images/marker/restaurant.png",
+  new kakao.maps.Size(20, 20),
+  new kakao.maps.Point(10, 20)
 );
 
 const userMarkerImage = new kakao.maps.MarkerImage(
   "images/marker/user.png",
-  new kakao.maps.Size(40, 40),
-  new kakao.maps.Point(20, 40)
+  new kakao.maps.Size(30, 40),
+  new kakao.maps.Point(15, 40)
 );
 
 // kakao map initial setting
@@ -28,12 +28,6 @@ map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-const clusterer = new kakao.maps.MarkerClusterer({
-  map: map,
-  averageCenter: true,
-  minLevel: 5,
-});
 
 // functions
 function setPresentPosition() {
@@ -69,7 +63,6 @@ function displayMarker(localPosition, markerImage, message) {
     position: localPosition,
     image: markerImage,
   });
-  clusterer.addMarker(marker);
 
   if (message) {
     const infowindow = new kakao.maps.InfoWindow({
@@ -79,39 +72,43 @@ function displayMarker(localPosition, markerImage, message) {
 
     infowindow.open(map, marker);
   }
-
   marker.setMap(map);
 }
 
 async function displayData() {
-  const toiletListElement = document.getElementById("toiletList");
-  const toiletListData = await getDataList({
+  const dataListElement = document.getElementById("dataList");
+  const dataList = await getDataList({
     setLoading: () => {
-      toiletListElement.classList.add("loading");
+      dataListElement.classList.add("loading");
     },
     finishLoading: () => {
-      toiletListElement.classList.remove("loading");
+      dataListElement.classList.remove("loading");
     },
   });
-  toiletListData.forEach((data) => {
-    const toiletLocation = new kakao.maps.LatLng(data.LAT, data.LNG);
+  dataList.forEach((data) => {
+    const dataLocation = new kakao.maps.LatLng(data.LAT, data.LNG);
 
-    displayMarker(toiletLocation, toiletMarkerImage, null);
+    displayMarker(dataLocation, CustomMarkerImage, null);
 
-    const toilet = document.createElement("p");
-    toilet.className = "item";
-    toilet.innerHTML = `${data.MAIN_TITLE}`;
-    toilet.addEventListener("click", () => {
-      map.panTo(toiletLocation);
+    const item = document.createElement("p");
+    item.className = "item";
+    item.innerHTML = `${data.MAIN_TITLE}`;
+    item.addEventListener("click", () => {
+      map.panTo(dataLocation);
       displaySelectedData(data);
     });
-    toiletListElement.appendChild(toilet);
+    dataListElement.appendChild(item);
   });
 }
 
-function displaySelectedData(selectedData) {
-  const element = document.getElementById("toiletDetail");
+async function displaySelectedData(selectedData) {
+  const destination = new kakao.maps.LatLng(selectedData.LAT, selectedData.LNG);
+  const time = await displayRoute(presentPosition, destination);
+  const element = document.getElementById("dataDetail");
   element.innerHTML = `
+    <div class="item">
+      <img src=${selectedData.MAIN_IMG_THUMB} alt=""/>
+    </div>
     <div class="item">
       <div>식당이름</div>
       <div>${selectedData.MAIN_TITLE}</div>
@@ -122,6 +119,7 @@ function displaySelectedData(selectedData) {
     </div>
     <div class="item">전화번호 : ${selectedData.CNTCT_TEL}</div>
     <div class="item">개방시간 : ${selectedData.USAGE_DAY_WEEK_AND_TIME}</div>
+    <div class="item">${time}</div>
   `;
 }
 
