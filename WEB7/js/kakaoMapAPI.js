@@ -22,10 +22,18 @@ const mapOption = {
 };
 
 const map = new kakao.maps.Map(mapContainer, mapOption);
+
 const mapTypeControl = new kakao.maps.MapTypeControl();
 map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
 const zoomControl = new kakao.maps.ZoomControl();
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+const clusterer = new kakao.maps.MarkerClusterer({
+  map: map,
+  averageCenter: true,
+  minLevel: 5,
+});
 
 // functions
 function setPresentPosition() {
@@ -61,6 +69,7 @@ function displayMarker(localPosition, markerImage, message) {
     position: localPosition,
     image: markerImage,
   });
+  clusterer.addMarker(marker);
 
   if (message) {
     const infowindow = new kakao.maps.InfoWindow({

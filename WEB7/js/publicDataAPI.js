@@ -4,6 +4,7 @@ const PUBLIC_DATA_END_POINT =
   "http://apis.data.go.kr/6260000/FoodService/getFoodKr";
 const PUBLIC_DATA_SERVICE_KEY =
   "ZUNxLvaGCvEs%2FKT9A5PUWAsqbc7eG61kOXeXY5DnXeCxe3jyM57N5EmQqbFhqwRgR1FxF1BzQOSVnpes9xp0Cg%3D%3D";
+
 const request = async (url) => {
   try {
     const res = await fetch(url);
