@@ -17,7 +17,7 @@ const userMarkerImage = new kakao.maps.MarkerImage(
 const mapContainer = document.getElementById("map");
 const mapOption = {
   center: new kakao.maps.LatLng(35.1347632, 129.1081092),
-  level: 3,
+  level: 5,
   mapTypeId: kakao.maps.MapTypeId.ROADMAP,
 };
 
@@ -35,7 +35,7 @@ function setPresentPosition() {
       const lon = position.coords.longitude;
 
       presentPosition = new kakao.maps.LatLng(lat, lon);
-      displayMarker(presentPosition, userMarkerImage, "화장실 어디있지?");
+      displayMarker(presentPosition, userMarkerImage, "배고파! 맛집알려줘");
       map.panTo(presentPosition);
     });
   } else {
@@ -76,7 +76,7 @@ function displayMarker(localPosition, markerImage, message) {
 
 async function displayData() {
   const toiletListElement = document.getElementById("toiletList");
-  const toiletListData = await getToiletList({
+  const toiletListData = await getDataList({
     setLoading: () => {
       toiletListElement.classList.add("loading");
     },
@@ -85,37 +85,34 @@ async function displayData() {
     },
   });
   toiletListData.forEach((data) => {
-    const toiletLocation = new kakao.maps.LatLng(data.latitude, data.longitude);
+    const toiletLocation = new kakao.maps.LatLng(data.LAT, data.LNG);
 
     displayMarker(toiletLocation, toiletMarkerImage, null);
 
     const toilet = document.createElement("p");
     toilet.className = "item";
-    toilet.innerHTML = `${data.toiletNm}`;
+    toilet.innerHTML = `${data.MAIN_TITLE}`;
     toilet.addEventListener("click", () => {
       map.panTo(toiletLocation);
-      displaySelectedToilet(data);
+      displaySelectedData(data);
     });
     toiletListElement.appendChild(toilet);
   });
 }
 
-function displaySelectedToilet(selectedToilet) {
+function displaySelectedData(selectedData) {
   const element = document.getElementById("toiletDetail");
   element.innerHTML = `
     <div class="item">
-      <div>화장실명</div>
-      <div>${selectedToilet.toiletNm}</div>
+      <div>식당이름</div>
+      <div>${selectedData.MAIN_TITLE}</div>
     </div>
     <div class="item">
       <div>도로명주소</div>
-      <div>${selectedToilet.rdnmadr}</div>
+      <div>${selectedData.ADDR1}</div>
     </div>
-    <div class="item">전화번호 : ${selectedToilet.phoneNumber}</div>
-    <div class="item">개방시간 : ${selectedToilet.openTime}</div>
-    <div class="item">남성용 - 대변기수 : ${selectedToilet.menToiletBowlNumber}개</div>
-    <div class="item">남성용 - 소변기수 : ${selectedToilet.menUrineNumber}개</div>
-    <div class="item">여성용 - 대변기수 : ${selectedToilet.ladiesToiletBowlNumber}개</div>
+    <div class="item">전화번호 : ${selectedData.CNTCT_TEL}</div>
+    <div class="item">개방시간 : ${selectedData.USAGE_DAY_WEEK_AND_TIME}</div>
   `;
 }
 
