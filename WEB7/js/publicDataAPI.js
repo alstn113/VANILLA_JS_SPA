@@ -1,8 +1,7 @@
 const PUBLIC_DATA_END_POINT =
-  "http://api.data.go.kr/openapi/tn_pubr_public_toilet_api";
+  "http://apis.data.go.kr/6260000/FoodService/getFoodKr";
 const PUBLIC_DATA_SERVICE_KEY =
   "ZUNxLvaGCvEs%2FKT9A5PUWAsqbc7eG61kOXeXY5DnXeCxe3jyM57N5EmQqbFhqwRgR1FxF1BzQOSVnpes9xp0Cg%3D%3D";
-
 const request = async (url) => {
   try {
     const res = await fetch(url);
@@ -17,7 +16,7 @@ const getToiletList = async ({ setLoading, finishLoading }) => {
   try {
     setLoading();
     const { response } = await request(
-      `${PUBLIC_DATA_END_POINT}?serviceKey=${PUBLIC_DATA_SERVICE_KEY}&type=json&numOfRows=500&pageNo=41`
+      "https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=ZUNxLvaGCvEs%2FKT9A5PUWAsqbc7eG61kOXeXY5DnXeCxe3jyM57N5EmQqbFhqwRgR1FxF1BzQOSVnpes9xp0Cg%3D%3D&pageNo=1&numOfRows=10"
     );
     console.log(response.body.items);
     return response.body.items;
