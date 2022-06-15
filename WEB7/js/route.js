@@ -3,6 +3,12 @@ let pedestrian_endMarker;
 
 let car_polyline;
 
+const destinationMarkerImage = new kakao.maps.MarkerImage(
+  "images/marker/selMarker.gif",
+  new kakao.maps.Size(80, 80),
+  new kakao.maps.Point(40, 80)
+);
+
 async function displayPedestrianRoute(start, end) {
   if (pedestrian_polyline != null) {
     pedestrian_polyline.setMap(null);
@@ -14,6 +20,7 @@ async function displayPedestrianRoute(start, end) {
   pedestrian_endMarker = new kakao.maps.Marker({
     map: map,
     position: end,
+    image: destinationMarkerImage,
   });
 
   const request = JSON.stringify({

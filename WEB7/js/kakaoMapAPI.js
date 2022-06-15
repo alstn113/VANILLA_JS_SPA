@@ -77,7 +77,7 @@ function displayMarker(localPosition, markerImage, message) {
 
 async function displayData() {
   const dataListElement = document.getElementById("dataList");
-  const dataList = await getDataList({
+  let dataList = await getDataList({
     setLoading: () => {
       dataListElement.classList.add("loading");
     },
@@ -85,6 +85,8 @@ async function displayData() {
       dataListElement.classList.remove("loading");
     },
   });
+  dataList = sortDataListByDistance(presentPosition, dataList);
+
   dataList.forEach((data) => {
     const dataLocation = new kakao.maps.LatLng(data.LAT, data.LNG);
 
@@ -124,6 +126,14 @@ async function displaySelectedData(selectedData) {
     <div class="item">개방시간 : ${selectedData.USAGE_DAY_WEEK_AND_TIME}</div>
     <div class="item"><i class="fa-solid fa-circle" style="color:red;"></i> ${pedestrian_time}</div>
     <div class="item"><i class="fa-solid fa-circle" style="color:blue;"></i> ${cart_time}</div>
+    <div class="item">
+      <div>메인 메뉴</div>
+      <div>${selectedData.RPRSNTV_MENU}</div>
+    </div>
+    <div class="item">
+      <div>설명</div>
+      <div>${selectedData.ITEMCNTNTS}</div>
+    </div>
   `;
 }
 
