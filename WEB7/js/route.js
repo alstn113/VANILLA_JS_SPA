@@ -39,7 +39,7 @@ async function displayPedestrianRoute(start, end) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        appKey: "l7xx4ad3a3606a834059a126ac7918909a35",
+        appKey: "l7xx67da3a06ac524184868a066a9aab7861",
       },
       body: request,
     }
@@ -98,7 +98,7 @@ async function displayCarRoute(start, end) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        appKey: "l7xx4ad3a3606a834059a126ac7918909a35",
+        appKey: "l7xx67da3a06ac524184868a066a9aab7861",
       },
       body: request,
     }
