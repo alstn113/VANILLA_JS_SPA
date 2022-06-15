@@ -103,15 +103,18 @@ async function displayData() {
 
 async function displaySelectedData(selectedData) {
   const destination = new kakao.maps.LatLng(selectedData.LAT, selectedData.LNG);
-  const time = await displayRoute(presentPosition, destination);
+  const pedestrian_time = await displayPedestrianRoute(
+    presentPosition,
+    destination
+  );
+  const cart_time = await displayCarRoute(presentPosition, destination);
   const element = document.getElementById("dataDetail");
   element.innerHTML = `
     <div class="item">
       <img src=${selectedData.MAIN_IMG_THUMB} alt=""/>
     </div>
     <div class="item">
-      <div>식당이름</div>
-      <div>${selectedData.MAIN_TITLE}</div>
+      <div>식당이름 : ${selectedData.MAIN_TITLE}</div>
     </div>
     <div class="item">
       <div>도로명주소</div>
@@ -119,7 +122,8 @@ async function displaySelectedData(selectedData) {
     </div>
     <div class="item">전화번호 : ${selectedData.CNTCT_TEL}</div>
     <div class="item">개방시간 : ${selectedData.USAGE_DAY_WEEK_AND_TIME}</div>
-    <div class="item">${time}</div>
+    <div class="item"><i class="fa-solid fa-circle" style="color:red;"></i> ${pedestrian_time}</div>
+    <div class="item"><i class="fa-solid fa-circle" style="color:blue;"></i> ${cart_time}</div>
   `;
 }
 

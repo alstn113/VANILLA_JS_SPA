@@ -55,7 +55,7 @@ aside h3 {
   border: 0.5px solid rgba(0, 0, 0, 0.1);
 }
 .item img {
-  max-width: 100%;
+  max-width: 60%;
 }
 .item:hover {
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
