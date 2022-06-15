@@ -67,7 +67,7 @@ async function displayPedestrianRoute(start, end) {
     path: linePath,
     strokeWeight: 5,
     strokeColor: "red",
-    strokeOpacity: 1,
+    strokeOpacity: 0.7,
     strokeStyle: "dashed",
     zIndex: 2,
   });
@@ -126,7 +126,7 @@ async function displayCarRoute(start, end) {
     path: linePath,
     strokeWeight: 7,
     strokeColor: "blue",
-    strokeOpacity: 0.8,
+    strokeOpacity: 0.7,
     strokeStyle: "solid",
     zIndex: 1,
   });

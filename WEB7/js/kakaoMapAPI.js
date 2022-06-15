@@ -1,4 +1,5 @@
 let presentPosition;
+let dataList;
 
 // custom marker images
 const CustomMarkerImage = new kakao.maps.MarkerImage(
@@ -39,6 +40,21 @@ function setPresentPosition() {
       presentPosition = new kakao.maps.LatLng(lat, lon);
       displayMarker(presentPosition, userMarkerImage, "배고파! 맛집알려줘");
       map.panTo(presentPosition);
+
+      const dataListElement = document.getElementById("dataList");
+      dataListElement.innerHTML = "";
+      dataList = sortDataListByDistance(presentPosition, dataList);
+      dataList?.forEach((data) => {
+        const dataLocation = new kakao.maps.LatLng(data.LAT, data.LNG);
+        const item = document.createElement("p");
+        item.className = "item";
+        item.innerHTML = `${data.MAIN_TITLE}`;
+        item.addEventListener("click", () => {
+          map.panTo(dataLocation);
+          displaySelectedData(data);
+        });
+        dataListElement.appendChild(item);
+      });
     });
   } else {
     presentPosition = new kakao.maps.LatLng(35.1347632, 129.1081092);
@@ -86,7 +102,7 @@ function displayMarker(localPosition, markerImage, message, data) {
 
 async function displayData() {
   const dataListElement = document.getElementById("dataList");
-  let dataList = await getDataList({
+  dataList = await getDataList({
     setLoading: () => {
       dataListElement.classList.add("loading");
     },

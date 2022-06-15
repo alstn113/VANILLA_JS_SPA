@@ -24,7 +24,7 @@ function sortDataListByDistance(presentPosition, dataList) {
   const user_lat = presentPosition.getLat();
   const user_lng = presentPosition.getLng();
 
-  dataList.sort((a, b) => {
+  dataList?.sort((a, b) => {
     return (
       getDistance(user_lat, user_lng, a.LAT, a.LNG) -
       getDistance(user_lat, user_lng, b.LAT, b.LNG)
