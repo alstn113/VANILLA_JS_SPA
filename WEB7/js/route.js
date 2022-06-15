@@ -67,9 +67,9 @@ async function displayPedestrianRoute(start, end) {
     path: linePath,
     strokeWeight: 5,
     strokeColor: "red",
-    strokeOpacity: 0.8,
+    strokeOpacity: 1,
     strokeStyle: "dashed",
-    zIndex: 1,
+    zIndex: 2,
   });
 
   pedestrian_polyline.setMap(map);
@@ -124,11 +124,11 @@ async function displayCarRoute(start, end) {
   car_polyline = new kakao.maps.Polyline({
     endArrow: true,
     path: linePath,
-    strokeWeight: 5,
+    strokeWeight: 7,
     strokeColor: "blue",
     strokeOpacity: 0.8,
     strokeStyle: "solid",
-    zIndex: 2,
+    zIndex: 1,
   });
 
   car_polyline.setMap(map);

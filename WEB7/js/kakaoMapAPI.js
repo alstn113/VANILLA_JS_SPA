@@ -2,9 +2,9 @@ let presentPosition;
 
 // custom marker images
 const CustomMarkerImage = new kakao.maps.MarkerImage(
-  "images/marker/restaurant.png",
-  new kakao.maps.Size(20, 20),
-  new kakao.maps.Point(10, 20)
+  "images/marker/yellow.png",
+  new kakao.maps.Size(30, 40),
+  new kakao.maps.Point(15, 40)
 );
 
 const userMarkerImage = new kakao.maps.MarkerImage(
@@ -45,7 +45,8 @@ function setPresentPosition() {
     displayMarker(
       presentPosition,
       userMarkerImage,
-      "위치데이터를 받아올 수 없음"
+      "위치데이터를 받아올 수 없음",
+      null
     );
     map.panTo(presentPosition);
   }
@@ -58,7 +59,7 @@ function setPresentPosition() {
   });
 }
 
-function displayMarker(localPosition, markerImage, message) {
+function displayMarker(localPosition, markerImage, message, data) {
   const marker = new kakao.maps.Marker({
     position: localPosition,
     image: markerImage,
@@ -67,11 +68,19 @@ function displayMarker(localPosition, markerImage, message) {
   if (message) {
     const infowindow = new kakao.maps.InfoWindow({
       position: localPosition,
-      content: `<div class="infowindow">${message}</div>`,
+      content: `<div class="info-title">${message}</div>`,
     });
 
-    infowindow.open(map, marker);
+    kakao.maps.event.addListener(marker, "mouseover", () => {
+      infowindow.open(map, marker);
+    });
+    kakao.maps.event.addListener(marker, "mouseout", () => {
+      infowindow.close();
+    });
   }
+  kakao.maps.event.addListener(marker, "click", () => {
+    displaySelectedData(data);
+  });
   marker.setMap(map);
 }
 
@@ -90,7 +99,7 @@ async function displayData() {
   dataList.forEach((data) => {
     const dataLocation = new kakao.maps.LatLng(data.LAT, data.LNG);
 
-    displayMarker(dataLocation, CustomMarkerImage, null);
+    displayMarker(dataLocation, CustomMarkerImage, data.MAIN_TITLE, data);
 
     const item = document.createElement("p");
     item.className = "item";
