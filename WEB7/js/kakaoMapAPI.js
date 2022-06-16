@@ -83,13 +83,15 @@ function displayMarker(localPosition, markerImage, data) {
           <div class="title">${data.MAIN_TITLE}</div>
           <div class="body">
             <div class="img">
-              <img src="${data?.MAIN_IMG_THUMB}" width="73" height="70" />
+              <img src="${data.MAIN_IMG_THUMB}" width="73" height="70" />
             </div>
             <div class="desc">
               <div class="ellipsis">도로명 주소</div>
               <div class="ellipsis">${data.ADDR1}</div>
               <div class="ellipsis">메인 메뉴</div>
-              <div class="ellipsis">${data.RPRSNTV_MENU}</div>
+              <div class="ellipsis">${
+                data.RPRSNTV_MENU || "표시되지 않음"
+              }</div>
             </div>
           </div>
         </div>
@@ -167,7 +169,7 @@ async function displaySelectedData(selectedData) {
     <div class="item"><i class="fa-solid fa-circle" style="color:blue;"></i> ${cart_time}</div>
     <div class="item">
       <div>메인 메뉴</div>
-      <div>${selectedData.RPRSNTV_MENU}</div>
+      <div>${selectedData.RPRSNTV_MENU || "표시되지 않음"}</div>
     </div>
     <div class="item">
       <div>설명</div>
