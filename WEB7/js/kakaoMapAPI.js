@@ -86,9 +86,9 @@ function displayMarker(localPosition, markerImage, data) {
               <img src="${data.MAIN_IMG_THUMB}" width="73" height="70" />
             </div>
             <div class="desc">
-              <div class="ellipsis">도로명 주소</div>
+              <div class="ellipsis">🏠도로명 주소</div>
               <div class="ellipsis">${data.ADDR1}</div>
-              <div class="ellipsis">메인 메뉴</div>
+              <div class="ellipsis">🍴메인 메뉴</div>
               <div class="ellipsis">${
                 data.RPRSNTV_MENU || "표시되지 않음"
               }</div>
