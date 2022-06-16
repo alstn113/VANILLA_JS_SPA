@@ -95,15 +95,3 @@ footer {
   padding: 0.5rem;
   font-size: 1rem;
 }
-
-.infowindow {
-  margin-left: 1.3rem;
-}
-
-.info-title {
-  display: block;
-  color: black;
-  width: 150px;
-  text-align: center;
-  padding: 6px 0;
-}

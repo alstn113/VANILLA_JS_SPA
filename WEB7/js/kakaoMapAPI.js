@@ -38,7 +38,7 @@ function setPresentPosition() {
       const lon = position.coords.longitude;
 
       presentPosition = new kakao.maps.LatLng(lat, lon);
-      displayMarker(presentPosition, userMarkerImage, "배고파! 맛집알려줘");
+      displayMarker(presentPosition, userMarkerImage, null);
       map.panTo(presentPosition);
 
       const dataListElement = document.getElementById("dataList");
@@ -58,12 +58,7 @@ function setPresentPosition() {
     });
   } else {
     presentPosition = new kakao.maps.LatLng(35.1347632, 129.1081092);
-    displayMarker(
-      presentPosition,
-      userMarkerImage,
-      "위치데이터를 받아올 수 없음",
-      null
-    );
+    displayMarker(presentPosition, userMarkerImage, null);
     map.panTo(presentPosition);
   }
 
@@ -75,28 +70,47 @@ function setPresentPosition() {
   });
 }
 
-function displayMarker(localPosition, markerImage, message, data) {
+function displayMarker(localPosition, markerImage, data) {
   const marker = new kakao.maps.Marker({
     position: localPosition,
     image: markerImage,
   });
 
-  if (message) {
-    const infowindow = new kakao.maps.InfoWindow({
+  if (data) {
+    const content = `
+      <div class="wrap">
+        <div class="info">
+          <div class="title">${data.MAIN_TITLE}</div>
+          <div class="body">
+            <div class="img">
+              <img src="${data?.MAIN_IMG_THUMB}" width="73" height="70" />
+            </div>
+            <div class="desc">
+              <div class="ellipsis">도로명 주소</div>
+              <div class="ellipsis">${data.ADDR1}</div>
+              <div class="ellipsis">메인 메뉴</div>
+              <div class="ellipsis">${data.RPRSNTV_MENU}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const customOverlay = new kakao.maps.CustomOverlay({
       position: localPosition,
-      content: `<div class="info-title">${message}</div>`,
+      content: content,
     });
 
     kakao.maps.event.addListener(marker, "mouseover", () => {
-      infowindow.open(map, marker);
+      customOverlay.setMap(map);
     });
     kakao.maps.event.addListener(marker, "mouseout", () => {
-      infowindow.close();
+      customOverlay.setMap(null);
+    });
+    kakao.maps.event.addListener(marker, "click", () => {
+      displaySelectedData(data);
     });
   }
-  kakao.maps.event.addListener(marker, "click", () => {
-    displaySelectedData(data);
-  });
   marker.setMap(map);
 }
 
@@ -115,7 +129,7 @@ async function displayData() {
   dataList.forEach((data) => {
     const dataLocation = new kakao.maps.LatLng(data.LAT, data.LNG);
 
-    displayMarker(dataLocation, CustomMarkerImage, data.MAIN_TITLE, data);
+    displayMarker(dataLocation, CustomMarkerImage, data);
 
     const item = document.createElement("p");
     item.className = "item";
