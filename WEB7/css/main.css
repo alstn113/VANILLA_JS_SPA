@@ -28,7 +28,7 @@ aside {
   width: 20%;
 }
 aside > div {
-  height: 480px;
+  height: 65vh;
   overflow: auto;
 }
 aside > div::-webkit-scrollbar {
@@ -78,7 +78,7 @@ footer {
 .map_wrap {
   position: relative;
   width: 60%;
-  height: 500px;
+  height: 72vh;
   z-index: 1;
 }
 
